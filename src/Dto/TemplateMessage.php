@@ -56,7 +56,7 @@ class TemplateMessage implements WhatsappMessage
                 $bodyParameters[] = $parameter;
             }
 
-            $body['components'][] = [
+            $body['template']['components'][] = [
                 'type' => 'body',
                 'parameters' => $bodyParameters,
             ];
