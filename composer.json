@@ -1,0 +1,38 @@
+{
+  "name": "defstudio/whatsapper",
+  "description": "a Whatsapp Messaging API connector for PHP",
+  "keywords": [
+    "defstudio",
+    "php",
+    "whatsapp",
+    "messaging",
+    "api"
+  ],
+  "homepage": "https://github.com/defstudio/whatsapper",
+  "support": {
+    "issues": "https://github.com/defstudio/whatsapper/issues",
+    "source": "https://github.com/defstudio/whatsapper"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Fabio Ivona",
+      "email": "fabio.ivona@defstudio.it",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "saloonphp/saloon": "^3.14"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers.php"
+    ],
+    "psr-4": {
+      "DefStudio\\Whatsapper\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
