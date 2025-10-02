@@ -40,21 +40,25 @@ class TemplateMessage implements WhatsappMessage
         ];
 
         if ($this->bodyParameters !== []) {
+
+            $bodyParameters = [];
+
+            foreach ($this->bodyParameters as $key => $text) {
+                $parameter = [
+                    'type' => 'text',
+                    'text' => $text,
+                ];
+
+                if (!is_numeric($key)) {
+                    $parameter['parameter_name'] = $key;
+                }
+
+                $bodyParameters[] = $parameter;
+            }
+
             $body['components'][] = [
                 'type' => 'body',
-                'parameters' => array_map(function($text, $key) {
-                    $parameter = [
-                        'type' => 'text',
-                        'text' => $text,
-                    ];
-
-                    if (!is_numeric($key)) {
-                        $parameter['parameter_name'] = $key;
-                    }
-
-                    return $parameter;
-                }, $this->bodyParameters),
-
+                'parameters' => $bodyParameters,
             ];
         }
 
