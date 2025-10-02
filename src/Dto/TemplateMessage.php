@@ -3,9 +3,12 @@
 namespace DefStudio\Whatsapper\Dto;
 
 use DefStudio\Whatsapper\Concerns\WhatsappMessage;
+use Saloon\Traits\Makeable;
 
 class TemplateMessage implements WhatsappMessage
 {
+    use Makeable;
+
     public string $templateName;
     public string $language;
 
