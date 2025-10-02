@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace DefStudio\Whatsapper\Integrations;
+namespace DefStudio\Whatsapper;
 
 use DefStudio\Whatsapper\Concerns\WhatsappMessage;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageRequest;

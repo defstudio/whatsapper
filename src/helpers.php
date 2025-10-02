@@ -1,5 +1,10 @@
 <?php
 
-if(!function_exists('whatsapp')) {
-    
+use DefStudio\Whatsapper\Whatsapp;
+
+if (!function_exists('whatsapp')) {
+    function whatsapp(): Whatsapp
+    {
+        return new Whatsapp();
+    }
 }
