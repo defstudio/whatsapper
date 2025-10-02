@@ -24,7 +24,7 @@ class Whatsapp
         return $this;
     }
 
-    public function send(WhatsappMessage $message, string $to): Response
+    public function send(string $to, WhatsappMessage $message): Response
     {
         return WhatsappConnector::make($this->phoneId, $this->phoneToken)
             ->send(SendWhatsappMessageRequest::make($message)->to($to));
