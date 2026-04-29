@@ -6,8 +6,7 @@ class WhatsappWebhookPayload
 {
     public function __construct(
         public readonly array $payload,
-    ) {
-    }
+    ) {}
 
     public function messages(): array
     {

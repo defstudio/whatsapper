@@ -16,7 +16,6 @@ class TextMessage implements WhatsappMessage
         $this->text = $text;
     }
 
-
     public function toRequestBody(): array
     {
         return [

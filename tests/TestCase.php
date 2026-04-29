@@ -2,9 +2,9 @@
 
 namespace DefStudio\Whatsapper\Tests;
 
+use DefStudio\Whatsapper\WhatsapperServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use DefStudio\Whatsapper\WhatsapperServiceProvider;
 
 class TestCase extends Orchestra
 {

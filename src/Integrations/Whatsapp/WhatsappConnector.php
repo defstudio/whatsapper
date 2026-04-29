@@ -12,6 +12,7 @@ class WhatsappConnector extends Connector
     use AcceptsJson;
 
     protected string $phoneId;
+
     protected string $phoneToken;
 
     public function __construct(string $phoneId, string $phoneToken)
@@ -19,7 +20,6 @@ class WhatsappConnector extends Connector
         $this->phoneId = $phoneId;
         $this->phoneToken = $phoneToken;
     }
-
 
     /**
      * The Base URL of the API
@@ -43,6 +43,4 @@ class WhatsappConnector extends Connector
     {
         return new TokenAuthenticator($this->phoneToken);
     }
-
-
 }

@@ -18,6 +18,7 @@ class SendWhatsappMessageRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     protected string $to;
+
     protected WhatsappMessage $message;
 
     /**
@@ -36,6 +37,7 @@ class SendWhatsappMessageRequest extends Request implements HasBody
     public function to(string $to): static
     {
         $this->to = $to;
+
         return $this;
     }
 

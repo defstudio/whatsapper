@@ -2,11 +2,11 @@
 
 use DefStudio\Whatsapper\Facades\Whatsapper;
 
-if(!Whatsapper::isWebhookEnabled()){
+if (! Whatsapper::isWebhookEnabled()) {
     return;
 }
 
-\Illuminate\Support\Facades\Route::middleware(Whatsapper::getWebhookMiddleware())
+Illuminate\Support\Facades\Route::middleware(Whatsapper::getWebhookMiddleware())
     ->group(function () {
         Route::get(Whatsapper::getWebhookPath(), [Whatsapper::getWebhookControllerClass(), 'verify'])
             ->name('whatsapper.webhook.verify');

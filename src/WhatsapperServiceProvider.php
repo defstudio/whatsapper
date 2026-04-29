@@ -21,8 +21,6 @@ class WhatsapperServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->singleton(Whatsapper::class, fn() => new Whatsapper());
+        $this->app->singleton(Whatsapper::class, fn () => new Whatsapper);
     }
-
-
 }

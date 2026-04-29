@@ -10,9 +10,11 @@ class TemplateMessage implements WhatsappMessage
     use Makeable;
 
     public string $templateName;
+
     public string $language;
 
     public array $bodyParameters = [];
+
     public array $buttonParameters = [];
 
     public function __construct(string $templateName, string $language)
@@ -24,12 +26,14 @@ class TemplateMessage implements WhatsappMessage
     public function withBodyParameters(array $bodyParameters): self
     {
         $this->bodyParameters = $bodyParameters;
+
         return $this;
     }
 
     public function withButtonParameters(array $buttonParameters): self
     {
         $this->buttonParameters = $buttonParameters;
+
         return $this;
     }
 
@@ -68,6 +72,7 @@ class TemplateMessage implements WhatsappMessage
                         'index' => (string) ($button['index'] ?? (is_numeric($key) ? $key : 0)),
                         'parameters' => $this->normalizeParameters($button['parameters']),
                     ];
+
                     continue;
                 }
 
@@ -101,7 +106,7 @@ class TemplateMessage implements WhatsappMessage
                 ];
             }
 
-            if (!is_numeric($key) && !array_key_exists('parameter_name', $parameter)) {
+            if (! is_numeric($key) && ! array_key_exists('parameter_name', $parameter)) {
                 $parameter['parameter_name'] = $key;
             }
 

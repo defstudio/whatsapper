@@ -9,6 +9,5 @@ class WhatsappOtherWebhookEventReceived
         public readonly array $value,
         public readonly array $rawChange,
         public readonly array $rawPayload,
-    ) {
-    }
+    ) {}
 }

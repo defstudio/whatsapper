@@ -9,13 +9,11 @@ class WhatsapperConfigurationException extends Exception
 {
     public static function sendingNotConfigured(): WhatsapperConfigurationException
     {
-        return new self("Whatsapper message sending is not configured");
+        return new self('Whatsapper message sending is not configured');
     }
 
-     public static function webhookControllerMustImplementContract(): WhatsapperConfigurationException
+    public static function webhookControllerMustImplementContract(): WhatsapperConfigurationException
     {
-        return new self("Whatsapper webhook controller must implement " . WhatsappWebhookController::class);
+        return new self('Whatsapper webhook controller must implement '.WhatsappWebhookController::class);
     }
-
-
 }

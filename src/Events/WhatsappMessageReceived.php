@@ -10,6 +10,5 @@ class WhatsappMessageReceived
         public readonly ?array $contacts,
         public readonly array $rawChange,
         public readonly array $rawPayload,
-    ) {
-    }
+    ) {}
 }

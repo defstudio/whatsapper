@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WhatsapperWebhookController implements Contract
 {
-
     public function verify(Request $request): Response
     {
         $mode = $request->query('hub_mode', $request->query('hub.mode'));

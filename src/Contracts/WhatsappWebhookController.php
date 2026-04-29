@@ -9,5 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 interface WhatsappWebhookController
 {
     public function verify(Request $request): Response;
+
     public function handle(Request $request): JsonResponse;
 }

@@ -9,6 +9,5 @@ class WhatsappMessageStatusUpdated
         public readonly ?array $metadata,
         public readonly array $rawChange,
         public readonly array $rawPayload,
-    ) {
-    }
+    ) {}
 }
