@@ -1,12 +1,11 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace DefStudio\Whatsapper;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class WhatsapperServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -15,11 +14,15 @@ class SkeletonServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('skeleton')
+        $package->name('whatsapper')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasRoutes();
     }
+
+    public function packageRegistered(): void
+    {
+        $this->app->singleton(Whatsapper::class, fn() => new Whatsapper());
+    }
+
+
 }
