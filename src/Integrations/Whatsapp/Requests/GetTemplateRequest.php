@@ -13,7 +13,7 @@ class GetTemplateRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        protected string $businessAccountId,
+        protected string $whatsappBusinessAccountId,
         protected string $name,
         protected ?string $language = null,
     ) {}
@@ -23,7 +23,7 @@ class GetTemplateRequest extends Request
      */
     public function resolveEndpoint(): string
     {
-        return "$this->businessAccountId/message_templates";
+        return "$this->whatsappBusinessAccountId/message_templates";
     }
 
     protected function defaultQuery(): array

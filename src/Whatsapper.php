@@ -15,8 +15,7 @@ use Saloon\Http\Response;
 
 class Whatsapper
 {
-    protected ?string $businessAccountId;
-
+    protected ?string $whatsappBusinessAccountId;
     protected ?string $phoneId;
 
     protected ?string $phoneToken;
@@ -25,9 +24,9 @@ class Whatsapper
 
     protected ?string $webhookVerificationToken = null;
 
-    public function enableSending(string $businessAccountId, string $phoneId, string $phoneToken): static
+    public function enableSending(string $whatsappBusinessAccountId, string $phoneId, string $phoneToken): static
     {
-        $this->businessAccountId = $businessAccountId;
+        $this->whatsappBusinessAccountId = $whatsappBusinessAccountId;
         $this->phoneId = $phoneId;
         $this->phoneToken = $phoneToken;
 
@@ -52,7 +51,7 @@ class Whatsapper
     public function getTemplate(string $name, ?string $language = null): Response
     {
         return $this->connector()
-            ->send(GetTemplateRequest::make($this->businessAccountId, $name, $language));
+            ->send(GetTemplateRequest::make($this->whatsappBusinessAccountId, $name, $language));
     }
 
     public function connector(): WhatsappConnector
