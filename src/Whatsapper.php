@@ -43,7 +43,7 @@ class Whatsapper
     public function send(string $to, WhatsappMessage $message): Response
     {
         return $this->connector()
-            ->send(SendWhatsappMessageRequest::make($message)->to($to));
+            ->send(SendWhatsappMessageRequest::make($this->phoneId, $message)->to($to));
     }
 
     public function getTemplate(string $name, ?string $language = null): Response
@@ -58,7 +58,7 @@ class Whatsapper
             throw WhatsapperConfigurationException::sendingNotConfigured();
         }
 
-        return WhatsappConnector::make($this->phoneId, $this->phoneToken);
+        return WhatsappConnector::make($this->phoneToken);
     }
 
     public function isWebhookEnabled(): bool
@@ -77,21 +77,6 @@ class Whatsapper
         }
 
         return true;
-    }
-
-    public function getWebhookMiddleware(): array
-    {
-        return $this->webhookMiddleware;
-    }
-
-    public function getWebhookPath(): string
-    {
-        return $this->webhookPath;
-    }
-
-    public function getWebhookControllerClass(): string
-    {
-        return $this->webhookControllerClass;
     }
 
     public function verifyWebhook(string $token): bool
