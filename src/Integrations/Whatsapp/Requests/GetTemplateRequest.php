@@ -22,7 +22,7 @@ class GetTemplateRequest extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/message_templates';
+        return '/message_template_library';
     }
 
     protected function defaultQuery(): array

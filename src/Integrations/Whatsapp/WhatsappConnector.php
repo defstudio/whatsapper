@@ -11,14 +11,11 @@ class WhatsappConnector extends Connector
 {
     use AcceptsJson;
 
-    protected string $phoneId;
+    protected string $token;
 
-    protected string $phoneToken;
-
-    public function __construct(string $phoneId, string $phoneToken)
+    public function __construct(string $token)
     {
-        $this->phoneId = $phoneId;
-        $this->phoneToken = $phoneToken;
+        $this->token = $token;
     }
 
     /**
@@ -26,7 +23,7 @@ class WhatsappConnector extends Connector
      */
     public function resolveBaseUrl(): string
     {
-        return "https://graph.facebook.com/v22.0/$this->phoneId";
+        return "https://graph.facebook.com/v25.0";
     }
 
     /**
@@ -41,6 +38,6 @@ class WhatsappConnector extends Connector
 
     protected function defaultAuth(): ?Authenticator
     {
-        return new TokenAuthenticator($this->phoneToken);
+        return new TokenAuthenticator($this->token);
     }
 }
