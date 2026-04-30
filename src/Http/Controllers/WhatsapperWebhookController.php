@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpClassConstantAccessedViaChildClassInspection */
+<?php
+
+/** @noinspection PhpClassConstantAccessedViaChildClassInspection */
 
 namespace DefStudio\Whatsapper\Http\Controllers;
 
