@@ -31,7 +31,7 @@ trait IsWhatsappMessage
             'wa_id' => $message['from'],
         ]);
 
-        $this->timestamp = Carbon::parse($message['timestamp']);
+        $this->timestamp = Carbon::createFromTimestamp($message['timestamp']);
         $this->context = $message['context'] ? new WhatsappMessageContext($message['context']['from'], $message['context']['id']) : null;
 
         return $this;
