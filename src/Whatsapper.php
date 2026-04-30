@@ -108,4 +108,9 @@ class Whatsapper
 
         return $token === $this->webhookVerificationToken;
     }
+
+    public function generateWebhookVerificationToken(): string
+    {
+        return bin2hex(random_bytes(32));
+    }
 }
