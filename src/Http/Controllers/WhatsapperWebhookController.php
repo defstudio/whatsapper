@@ -17,6 +17,10 @@ class WhatsapperWebhookController implements Contract
 {
     public function verify(Request $request): Response
     {
+        if(!Whatsapper::isWebhookEnabled()){
+            abort(404);
+        }
+
         $mode = $request->query('hub_mode', $request->query('hub.mode'));
         $challenge = $request->query('hub_challenge', $request->query('hub.challenge'));
         $token = $request->query('hub_verify_token', $request->query('hub.verify_token'));
@@ -34,6 +38,10 @@ class WhatsapperWebhookController implements Contract
 
     public function handle(Request $request): JsonResponse
     {
+        if(!Whatsapper::isWebhookEnabled()){
+            abort(404);
+        }
+
         $payload = new WhatsappWebhookPayload($request->all());
 
         event(new WhatsappWebhookReceived($payload));

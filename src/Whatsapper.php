@@ -7,9 +7,7 @@
 namespace DefStudio\Whatsapper;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
-use DefStudio\Whatsapper\Contracts\WhatsappWebhookController;
 use DefStudio\Whatsapper\Exceptions\WhatsapperConfigurationException;
-use DefStudio\Whatsapper\Http\Controllers\WhatsapperWebhookController;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\WhatsappConnector;
 use Saloon\Http\Response;
@@ -21,12 +19,6 @@ class Whatsapper
     protected ?string $phoneToken;
 
     protected bool $webhookEnabled = false;
-
-    protected array $webhookMiddleware = [];
-
-    protected ?string $webhookPath = null;
-
-    protected ?string $webhookControllerClass = null;
 
     protected ?string $webhookVerificationToken = null;
 
@@ -40,19 +32,9 @@ class Whatsapper
 
     public function enableWebhook(
         string $verificationToken,
-        string $path = '/webhooks/whatsapp',
-        array $middleware = [],
-        ?string $controllerClass = null
     ): static {
         $this->webhookEnabled = true;
         $this->webhookVerificationToken = $verificationToken;
-        $this->webhookMiddleware = $middleware;
-        $this->webhookPath = $path;
-        $this->webhookControllerClass = $controllerClass ?? WhatsapperWebhookController::class;
-
-        if (! is_subclass_of($this->webhookControllerClass, WhatsappWebhookController::class)) {
-            throw WhatsapperConfigurationException::webhookControllerMustImplementContract();
-        }
 
         return $this;
     }

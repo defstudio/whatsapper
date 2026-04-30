@@ -1,16 +1,12 @@
 <?php
 
-use DefStudio\Whatsapper\Facades\Whatsapper;
+use DefStudio\Whatsapper\Http\Controllers\WhatsapperWebhookController;
 
-if (! Whatsapper::isWebhookEnabled()) {
-    return;
-}
-
-Illuminate\Support\Facades\Route::middleware(Whatsapper::getWebhookMiddleware())
+Illuminate\Support\Facades\Route::middleware(config('whatsapper.webhook.middleware', ['api']))
     ->group(function () {
-        Route::get(Whatsapper::getWebhookPath(), [Whatsapper::getWebhookControllerClass(), 'verify'])
+        Route::get(config('whatsapper.webhook.path', 'whatsapp/webhook'), [config('whatsapper.webhook.controller', WhatsapperWebhookController::class), 'verify'])
             ->name('whatsapper.webhook.verify');
 
-        Route::post(Whatsapper::getWebhookPath(), [Whatsapper::getWebhookControllerClass(), 'handle'])
+        Route::post(config('whatsapper.webhook.path', 'whatsapp/webhook'), [config('whatsapper.webhook.controller', WhatsapperWebhookController::class), 'handle'])
             ->name('whatsapper.webhook.handle');
     });
