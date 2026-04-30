@@ -21,20 +21,17 @@ class SendWhatsappMessageRequest extends Request implements HasBody
 
     protected WhatsappMessage $message;
 
-    protected string $phoneId;
-
     /**
      * The endpoint for the request
      */
     public function resolveEndpoint(): string
     {
-        return "/$this->phoneId/messages";
+        return '/messages';
     }
 
-    public function __construct(string $phoneId, WhatsappMessage $message)
+    public function __construct(WhatsappMessage $message)
     {
         $this->message = $message;
-        $this->phoneId = $phoneId;
     }
 
     public function to(string $to): static
