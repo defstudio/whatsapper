@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Events;
 
@@ -6,7 +8,6 @@ use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\ButtonMessage;
 use DefStudio\Whatsapper\Dto\TextMessage;
 use DefStudio\Whatsapper\Exceptions\WhatsapperParserException;
-use Exception;
 
 readonly class WhatsappMessageReceived
 {
@@ -16,8 +17,7 @@ readonly class WhatsappMessageReceived
         public ?array $contacts,
         public array $rawChange,
         public array $rawPayload,
-    ) {
-    }
+    ) {}
 
     public function message(): WhatsappMessage
     {

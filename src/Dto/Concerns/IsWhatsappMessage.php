@@ -1,18 +1,24 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Dto\Concerns;
 
 use Carbon\Carbon;
-use DefStudio\Whatsapper\Dto\WhatsappMessageContext;
 use DefStudio\Whatsapper\Dto\WhatsappContact;
+use DefStudio\Whatsapper\Dto\WhatsappMessageContext;
 use DefStudio\Whatsapper\Exceptions\WhatsapperParserException;
 
 trait IsWhatsappMessage
 {
     protected string $type;
+
     protected string $id;
+
     protected Carbon $timestamp;
+
     protected ?WhatsappMessageContext $context;
+
     protected WhatsappContact $contact;
 
     public function fillMessageData(array $message): static

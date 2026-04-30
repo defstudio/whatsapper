@@ -8,8 +8,6 @@ readonly class WhatsappContact
         public string $userId,
         public string $phoneNumber,
         public ?string $name = null,
-    )
-    {
-    }
+    ) {}
 
 }

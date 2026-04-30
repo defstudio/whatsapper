@@ -7,8 +7,6 @@ readonly class WhatsappMessageContext
     public function __construct(
         public string $from,
         public string $messageId,
-    )
-    {
-    }
+    ) {}
 
 }

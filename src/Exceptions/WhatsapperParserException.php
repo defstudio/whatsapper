@@ -13,11 +13,11 @@ class WhatsapperParserException extends Exception
 
     public static function missingUserId(): WhatsapperParserException
     {
-        return new self("whatsapp user id is missing from the message");
+        return new self('whatsapp user id is missing from the message');
     }
 
     public static function missingPhoneNumber(): WhatsapperParserException
     {
-        return new self("phone number is missing from the message");
+        return new self('phone number is missing from the message');
     }
 }

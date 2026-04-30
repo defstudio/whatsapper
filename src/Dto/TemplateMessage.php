@@ -3,7 +3,6 @@
 namespace DefStudio\Whatsapper\Dto;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
-use Saloon\Traits\Makeable;
 
 class TemplateMessage implements WhatsappMessage
 {

@@ -9,8 +9,8 @@ class ButtonMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
 
-
     protected string $text;
+
     protected string $payload;
 
     public function __construct(string $text, string $payload)
@@ -18,7 +18,6 @@ class ButtonMessage implements WhatsappMessage
         $this->text = $text;
         $this->payload = $payload;
     }
-
 
     public static function build(array $data): static
     {

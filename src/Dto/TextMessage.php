@@ -4,7 +4,6 @@ namespace DefStudio\Whatsapper\Dto;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessage;
-use Saloon\Traits\Makeable;
 
 class TextMessage implements WhatsappMessage
 {
