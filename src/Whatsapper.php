@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpGetterAndSetterCanBeReplacedWithPropertyHooksInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
@@ -12,19 +12,18 @@ use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageReque
 use DefStudio\Whatsapper\Integrations\Whatsapp\WhatsappConnector;
 use Saloon\Http\Response;
 
+
 class Whatsapper
 {
     protected ?string $phoneId;
-
     protected ?string $phoneToken;
 
     protected bool $webhookEnabled = false;
-
     protected array $webhookMiddleware = [];
-
     protected ?string $webhookPath = null;
-
     protected ?string $webhookControllerClass = null;
+
+    protected ?string $webhookVerificationToken = null;
 
     public function enableSending(string $phoneId, string $phoneToken): static
     {
@@ -35,16 +34,18 @@ class Whatsapper
     }
 
     public function enableWebhook(
+        string $verificationToken,
         string $path = '/webhooks/whatsapp',
         array $middleware = [],
         ?string $controllerClass = null
     ): static {
         $this->webhookEnabled = true;
+        $this->webhookVerificationToken = $verificationToken;
         $this->webhookMiddleware = $middleware;
         $this->webhookPath = $path;
         $this->webhookControllerClass = $controllerClass ?? WhatsapperWebhookController::class;
 
-        if (! is_subclass_of($this->webhookControllerClass, WhatsappWebhookController::class)) {
+        if (!is_subclass_of($this->webhookControllerClass, WhatsappWebhookController::class)) {
             throw WhatsapperConfigurationException::webhookControllerMustImplementContract();
         }
 
@@ -53,7 +54,7 @@ class Whatsapper
 
     public function send(string $to, WhatsappMessage $message): Response
     {
-        if (! $this->isSendingEnabled()) {
+        if (!$this->isSendingEnabled()) {
             throw WhatsapperConfigurationException::sendingNotConfigured();
         }
 
@@ -65,6 +66,7 @@ class Whatsapper
     {
         return $this->webhookEnabled;
     }
+
 
     public function isSendingEnabled(): bool
     {
@@ -92,5 +94,10 @@ class Whatsapper
     public function getWebhookControllerClass(): string
     {
         return $this->webhookControllerClass;
+    }
+
+    public function verifyWebhook(string $token): bool
+    {
+        return $token === $this->webhookVerificationToken;
     }
 }

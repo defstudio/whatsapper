@@ -7,6 +7,7 @@ use DefStudio\Whatsapper\Events\WhatsappMessageReceived;
 use DefStudio\Whatsapper\Events\WhatsappMessageStatusUpdated;
 use DefStudio\Whatsapper\Events\WhatsappOtherWebhookEventReceived;
 use DefStudio\Whatsapper\Events\WhatsappWebhookReceived;
+use DefStudio\Whatsapper\Facades\Whatsapper;
 use DefStudio\Whatsapper\Support\WhatsappWebhookPayload;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class WhatsapperWebhookController implements Contract
             return response('Invalid hub mode', Response::HTTP_BAD_REQUEST);
         }
 
-        if ($token !== config('whatsapper.webhook.verify_token')) {
+        if (!Whatsapper::verifyWebhook($token)) {
             return response('Invalid verify token', Response::HTTP_FORBIDDEN);
         }
 
