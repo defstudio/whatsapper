@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Dto;
 
@@ -131,16 +133,16 @@ class TemplateMessage implements WhatsappMessage
 
     public static function build(array $data): static
     {
-        throw new Exception("Not implemented.");
+        throw new Exception('Not implemented.');
     }
 
     public function context(): ?WhatsappMessageContext
     {
-        throw new Exception("Not implemented.");
+        throw new Exception('Not implemented.');
     }
 
     public function from(): WhatsappContact
     {
-        throw new Exception("Not implemented.");
+        throw new Exception('Not implemented.');
     }
 }
