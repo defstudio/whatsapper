@@ -102,6 +102,10 @@ class Whatsapper
 
     public function verifyWebhook(string $token): bool
     {
+        if(!$this->isWebhookEnabled()) {
+            return false;
+        }
+
         return $token === $this->webhookVerificationToken;
     }
 }
