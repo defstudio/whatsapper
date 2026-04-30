@@ -1,14 +1,34 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Events;
 
-class WhatsappMessageReceived
+use DefStudio\Whatsapper\Contracts\WhatsappMessage;
+use DefStudio\Whatsapper\Dto\ButtonMessage;
+use DefStudio\Whatsapper\Dto\TextMessage;
+use DefStudio\Whatsapper\Exceptions\WhatsapperParserException;
+use Exception;
+
+readonly class WhatsappMessageReceived
 {
     public function __construct(
-        public readonly array $message,
-        public readonly ?array $metadata,
-        public readonly ?array $contacts,
-        public readonly array $rawChange,
-        public readonly array $rawPayload,
-    ) {}
+        public array $message,
+        public ?array $metadata,
+        public ?array $contacts,
+        public array $rawChange,
+        public array $rawPayload,
+    ) {
+    }
+
+    public function message(): WhatsappMessage
+    {
+        $message = match ($this->message['type']) {
+            'text' => TextMessage::build($this->message),
+            'button' => ButtonMessage::build($this->message),
+            default => throw WhatsapperParserException::unsupportedType($this->message['type']),
+        };
+
+        $message->fillContact($this->contacts[0] ?? []);
+
+        return $message;
+    }
 }

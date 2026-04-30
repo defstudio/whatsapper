@@ -7,8 +7,6 @@ use Saloon\Traits\Makeable;
 
 class TemplateMessage implements WhatsappMessage
 {
-    use Makeable;
-
     public string $templateName;
 
     public string $language;
