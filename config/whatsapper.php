@@ -8,7 +8,7 @@ return [
         'path' => 'whatsapp/webhook',
         'controller' => WhatsapperWebhookController::class,
         'middleware' => [
-            'api'
+            'api',
         ],
-    ]
+    ],
 ];

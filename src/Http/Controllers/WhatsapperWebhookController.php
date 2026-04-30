@@ -17,7 +17,7 @@ class WhatsapperWebhookController implements Contract
 {
     public function verify(Request $request): Response
     {
-        if(!Whatsapper::isWebhookEnabled()){
+        if (! Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
@@ -38,7 +38,7 @@ class WhatsapperWebhookController implements Contract
 
     public function handle(Request $request): JsonResponse
     {
-        if(!Whatsapper::isWebhookEnabled()){
+        if (! Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
