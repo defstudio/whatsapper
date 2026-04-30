@@ -16,7 +16,7 @@ class WhatsapperServiceProvider extends PackageServiceProvider
          */
         $package->name('whatsapper')
             ->hasConfigFile()
-            ->hasRoutes();
+            ->hasRoute('api');
     }
 
     public function packageRegistered(): void
