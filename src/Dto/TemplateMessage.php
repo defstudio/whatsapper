@@ -1,8 +1,10 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Dto;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
+use DefStudio\Whatsapper\Facades\Whatsapper;
+use Exception;
 
 class TemplateMessage implements WhatsappMessage
 {
@@ -22,7 +24,15 @@ class TemplateMessage implements WhatsappMessage
 
     public function text(): string
     {
-        //TODO
+        $response = Whatsapper::getTemplate($this->templateName, $this->language);
+        $components = $response->json('data.0.components', []);
+
+        foreach ($components as $component) {
+            if (($component['type'] ?? null) === 'BODY') {
+                return (string) ($component['text'] ?? '');
+            }
+        }
+
         return '';
     }
 
@@ -117,5 +127,20 @@ class TemplateMessage implements WhatsappMessage
         }
 
         return $normalizedParameters;
+    }
+
+    public static function build(array $data): static
+    {
+        throw new Exception("Not implemented.");
+    }
+
+    public function context(): ?WhatsappMessageContext
+    {
+        throw new Exception("Not implemented.");
+    }
+
+    public function from(): WhatsappContact
+    {
+        throw new Exception("Not implemented.");
     }
 }

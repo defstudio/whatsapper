@@ -8,6 +8,7 @@ namespace DefStudio\Whatsapper;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Exceptions\WhatsapperConfigurationException;
+use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetTemplateRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\WhatsappConnector;
 use Saloon\Http\Response;
@@ -41,12 +42,23 @@ class Whatsapper
 
     public function send(string $to, WhatsappMessage $message): Response
     {
+        return $this->connector()
+            ->send(SendWhatsappMessageRequest::make($message)->to($to));
+    }
+
+    public function getTemplate(string $name, ?string $language = null): Response
+    {
+        return $this->connector()
+            ->send(GetTemplateRequest::make($name, $language));
+    }
+
+    public function connector(): WhatsappConnector
+    {
         if (! $this->isSendingEnabled()) {
             throw WhatsapperConfigurationException::sendingNotConfigured();
         }
 
-        return WhatsappConnector::make($this->phoneId, $this->phoneToken)
-            ->send(SendWhatsappMessageRequest::make($message)->to($to));
+        return WhatsappConnector::make($this->phoneId, $this->phoneToken);
     }
 
     public function isWebhookEnabled(): bool
