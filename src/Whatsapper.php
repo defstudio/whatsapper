@@ -16,6 +16,7 @@ use Saloon\Http\Response;
 class Whatsapper
 {
     protected ?string $whatsappBusinessAccountId;
+
     protected ?string $phoneId;
 
     protected ?string $phoneToken;
