@@ -25,7 +25,7 @@ class WhatsapperWebhookController implements Contract
             return response('Invalid hub mode', Response::HTTP_BAD_REQUEST);
         }
 
-        if (!Whatsapper::verifyWebhook($token)) {
+        if (! Whatsapper::verifyWebhook($token)) {
             return response('Invalid verify token', Response::HTTP_FORBIDDEN);
         }
 
