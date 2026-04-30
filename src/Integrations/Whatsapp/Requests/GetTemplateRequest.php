@@ -13,6 +13,7 @@ class GetTemplateRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
+        protected string $businessAccountId,
         protected string $name,
         protected ?string $language = null,
     ) {}
@@ -22,7 +23,7 @@ class GetTemplateRequest extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/message_template_library';
+        return "$this->businessAccountId/message_templates";
     }
 
     protected function defaultQuery(): array
