@@ -9,9 +9,8 @@ use DefStudio\Whatsapper\Events\WhatsappOtherWebhookEventReceived;
 use DefStudio\Whatsapper\Events\WhatsappWebhookReceived;
 use DefStudio\Whatsapper\Facades\Whatsapper;
 use DefStudio\Whatsapper\Support\WhatsappWebhookPayload;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class WhatsapperWebhookController implements Contract
 {
@@ -36,7 +35,7 @@ class WhatsapperWebhookController implements Contract
         return response((string) $challenge, Response::HTTP_OK);
     }
 
-    public function handle(Request $request): JsonResponse
+    public function handle(Request $request): Response
     {
         if (! Whatsapper::isWebhookEnabled()) {
             abort(404);
@@ -74,8 +73,6 @@ class WhatsapperWebhookController implements Contract
             ));
         }
 
-        return response()->json([
-            'received' => true,
-        ]);
+        return response()->noContent(Response::HTTP_OK);
     }
 }
