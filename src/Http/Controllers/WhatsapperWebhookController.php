@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 /** @noinspection PhpClassConstantAccessedViaChildClassInspection */
 
@@ -49,7 +49,7 @@ class WhatsapperWebhookController implements Contract
 
         foreach ($payload->messages() as $message) {
             event(new WhatsappMessageReceived(
-                message: $message['message'],
+                messageData: $message['message'],
                 metadata: $message['metadata'],
                 contacts: $message['contacts'],
                 rawChange: $message['change'],
