@@ -31,9 +31,9 @@ class TemplateMessage implements WhatsappMessage
 
         foreach ($components as $component) {
             if (($component['type'] ?? null) === 'BODY') {
-                $text =  (string) ($component['text'] ?? '');
+                $text = (string) ($component['text'] ?? '');
 
-                foreach ($this->bodyParameters as $index =>$parameter) {
+                foreach ($this->bodyParameters as $index => $parameter) {
                     $text = str_replace('{{'.$index.'}}', $parameter, $text);
                 }
 
