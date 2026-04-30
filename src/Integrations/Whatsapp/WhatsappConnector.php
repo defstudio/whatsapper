@@ -23,7 +23,7 @@ class WhatsappConnector extends Connector
      */
     public function resolveBaseUrl(): string
     {
-        return "https://graph.facebook.com/v25.0";
+        return 'https://graph.facebook.com/v25.0';
     }
 
     /**
