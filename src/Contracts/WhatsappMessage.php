@@ -14,4 +14,6 @@ interface WhatsappMessage
     public function context(): ?WhatsappMessageContext;
 
     public function from(): WhatsappContact;
+
+    public function text(): string;
 }

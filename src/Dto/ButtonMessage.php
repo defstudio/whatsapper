@@ -25,6 +25,16 @@ class ButtonMessage implements WhatsappMessage
             ->fillMessageData($data);
     }
 
+    public function text(): string
+    {
+        return $this->text;
+    }
+
+    public function payload(): string
+    {
+        return $this->payload;
+    }
+
     public function toRequestBody(): array
     {
         return [

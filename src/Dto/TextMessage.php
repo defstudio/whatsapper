@@ -22,6 +22,11 @@ class TextMessage implements WhatsappMessage
             ->fillMessageData($data);
     }
 
+    public function text(): string
+    {
+        return $this->text;
+    }
+
     public function toRequestBody(): array
     {
         return [

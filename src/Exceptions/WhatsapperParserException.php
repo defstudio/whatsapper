@@ -6,9 +6,9 @@ use Exception;
 
 class WhatsapperParserException extends Exception
 {
-    public static function unsupportedType(string $type): WhatsapperParserException
+    public static function unsupportedType(string $id, string $type): WhatsapperParserException
     {
-        return new self("Unsupported message type: $type");
+        return new self("Unsupported message type: $type [message id: $id]");
     }
 
     public static function missingUserId(): WhatsapperParserException

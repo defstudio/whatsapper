@@ -20,6 +20,12 @@ class TemplateMessage implements WhatsappMessage
         $this->language = $language;
     }
 
+    public function text(): string
+    {
+        //TODO
+        return '';
+    }
+
     public function withBodyParameters(array $bodyParameters): self
     {
         $this->bodyParameters = $bodyParameters;
