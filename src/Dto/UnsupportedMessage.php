@@ -4,10 +4,8 @@
 
 namespace DefStudio\Whatsapper\Dto;
 
-use Carbon\Carbon;
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessage;
-use DefStudio\Whatsapper\Facades\Whatsapper;
 use Exception;
 
 class UnsupportedMessage implements WhatsappMessage
@@ -23,7 +21,7 @@ class UnsupportedMessage implements WhatsappMessage
 
     public function text(): string
     {
-        return "_Errore: Questo tipo di messaggi non è supportato_";
+        return '_Errore: Questo tipo di messaggi non è supportato_';
     }
 
     public function toRequestBody(): array

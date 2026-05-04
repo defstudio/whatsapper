@@ -9,7 +9,6 @@ use DefStudio\Whatsapper\Dto\ButtonMessage;
 use DefStudio\Whatsapper\Dto\ImageMessage;
 use DefStudio\Whatsapper\Dto\TextMessage;
 use DefStudio\Whatsapper\Dto\UnsupportedMessage;
-use DefStudio\Whatsapper\Exceptions\WhatsapperParserException;
 
 readonly class WhatsappMessageReceived
 {
