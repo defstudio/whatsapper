@@ -46,21 +46,19 @@ class WhatsapperWebhookController implements Contract
             abort(404);
         }
 
-
-        if(config('whatsapper.debug.enabled')){
-            logger("[WHATSAPPER webhook] payload received: ".json_encode($request->all(), JSON_PRETTY_PRINT));
+        if (config('whatsapper.debug.enabled')) {
+            logger('[WHATSAPPER webhook] payload received: '.json_encode($request->all(), JSON_PRETTY_PRINT));
         }
 
         $payload = new WhatsappWebhookPayload($request->all());
-
 
         event(new WhatsappWebhookReceived($payload));
 
         foreach ($payload->messages() as $message) {
 
-            if(config('whatsapper.webhook.messages.store')){
+            if (config('whatsapper.webhook.messages.store')) {
                 Storage::disk(config('whatsapper.webhook.payloads.disk'))
-                    ->put(config('whatsapper.webhook.payloads.path', 'whatsapp/messages') . "/{$message['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                    ->put(config('whatsapper.webhook.payloads.path', 'whatsapp/messages')."/{$message['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageReceived(

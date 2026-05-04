@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Dto;
 
@@ -15,7 +17,9 @@ class ImageMessage implements WhatsappMessage
     use IsWhatsappMessage;
 
     protected string $imageId;
+
     protected string $imageUrl;
+
     protected string $imageMimeType;
 
     public function __construct(string $imageId, string $imageUrl, string $imageMimeType)
@@ -30,7 +34,6 @@ class ImageMessage implements WhatsappMessage
             );
         }
     }
-
 
     public function toRequestBody(): array
     {
@@ -55,7 +58,7 @@ class ImageMessage implements WhatsappMessage
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw new Exception('Failed to download image: '.$response->body());
         }
 
@@ -79,7 +82,7 @@ class ImageMessage implements WhatsappMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (!str_contains($mimeType, '/')) {
+        if (! str_contains($mimeType, '/')) {
             return 'bin';
         }
 

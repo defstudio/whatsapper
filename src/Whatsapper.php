@@ -62,14 +62,14 @@ class Whatsapper
         $response = $this->connector()
             ->send(new GetMediaRequest($url));
 
-        if($response->successful()) {
+        if ($response->successful()) {
             return $response;
         }
 
         $response = $this->connector()
             ->send(new GetMediaInfoRequest($id));
 
-        if(!$response->successful()) {
+        if (! $response->successful()) {
             return $response;
         }
 

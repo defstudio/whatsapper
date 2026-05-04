@@ -18,7 +18,6 @@ class WhatsappConnector extends Connector
         $this->token = $token;
     }
 
-
     /**
      * Default headers for every request
      */
