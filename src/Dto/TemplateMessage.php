@@ -153,12 +153,10 @@ class TemplateMessage implements WhatsappMessage
         throw new Exception('Not implemented.');
     }
 
-
     public function id(): string
     {
         throw new Exception('Not implemented.');
     }
-
 
     public function timestamp(): Carbon
     {
