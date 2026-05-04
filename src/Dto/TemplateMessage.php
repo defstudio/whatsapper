@@ -4,6 +4,7 @@
 
 namespace DefStudio\Whatsapper\Dto;
 
+use Carbon\Carbon;
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Facades\Whatsapper;
 use Exception;
@@ -148,6 +149,18 @@ class TemplateMessage implements WhatsappMessage
     }
 
     public function from(): WhatsappContact
+    {
+        throw new Exception('Not implemented.');
+    }
+
+
+    public function id(): string
+    {
+        throw new Exception('Not implemented.');
+    }
+
+
+    public function timestamp(): Carbon
     {
         throw new Exception('Not implemented.');
     }
