@@ -32,4 +32,9 @@ class WhatsappConnector extends Connector
     {
         return new TokenAuthenticator($this->token);
     }
+
+    public function resolveBaseUrl(): string
+    {
+        return '';
+    }
 }
