@@ -24,7 +24,6 @@ readonly class WhatsappMessageReceived
         $this->message = match ($this->messageData['type']) {
             'text' => TextMessage::build($this->messageData),
             'button' => ButtonMessage::build($this->messageData),
-            'image' =>
             default => throw WhatsapperParserException::unsupportedType($this->messageData['id'], $this->messageData['type']),
         };
 

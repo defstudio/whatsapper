@@ -15,6 +15,11 @@ return [
             'disk' => env('WHATSAPPER_MESSAGES_DISK'),
             'path' => env('WHATSAPPER_MESSAGES_PATH', 'whatsapp/messages'),
         ],
+        'images' => [
+            'store' => env('WHATSAPPER_STORE_MEDIA', true),
+            'disk' => env('WHATSAPPER_MEDIA_DISK'),
+            'path' => env('WHATSAPPER_MEDIA_PATH', 'whatsapp/media'),
+        ],
         'middleware' => [
             'api',
         ],
