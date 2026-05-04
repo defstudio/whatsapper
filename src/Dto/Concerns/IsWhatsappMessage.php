@@ -62,4 +62,9 @@ trait IsWhatsappMessage
     {
         return $this->id;
     }
+
+    public function timestamp(): Carbon
+    {
+        return $this->timestamp;
+    }
 }

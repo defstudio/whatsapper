@@ -2,6 +2,7 @@
 
 namespace DefStudio\Whatsapper\Contracts;
 
+use Carbon\Carbon;
 use DefStudio\Whatsapper\Dto\WhatsappContact;
 use DefStudio\Whatsapper\Dto\WhatsappMessageContext;
 
@@ -18,4 +19,6 @@ interface WhatsappMessage
     public function text(): string;
 
     public function id(): string;
+
+    public function timestamp(): Carbon;
 }
