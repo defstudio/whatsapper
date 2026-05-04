@@ -45,11 +45,13 @@ class WhatsapperWebhookController implements Contract
             abort(404);
         }
 
-        if (config('whatsapper.debug')) {
-            logger('[WHATSAPPER webhook] payload received', $request->all());
+
+        if(config('whatsapper.debug')){
+            logger("[WHATSAPPER webhook] payload received: ".json_encode($request->all(), JSON_PRETTY_PRINT));
         }
 
         $payload = new WhatsappWebhookPayload($request->all());
+
 
         event(new WhatsappWebhookReceived($payload));
 
