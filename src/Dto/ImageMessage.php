@@ -61,7 +61,7 @@ class ImageMessage implements WhatsappMessage
 
         File::put($path, $response->body());
 
-        return true;
+        return $path;
     }
 
     public function extension(): string
