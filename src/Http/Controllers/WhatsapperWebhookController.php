@@ -58,7 +58,7 @@ class WhatsapperWebhookController implements Contract
 
             if (config('whatsapper.webhook.messages.store')) {
                 Storage::disk(config('whatsapper.webhook.payloads.disk'))
-                    ->put(config('whatsapper.webhook.payloads.path', 'whatsapp/messages')."/{$message['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                    ->put(config('whatsapper.webhook.payloads.path', 'whatsapp/messages')."/{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageReceived(
