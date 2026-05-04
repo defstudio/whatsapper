@@ -28,7 +28,7 @@ class SendWhatsappMessageRequest extends Request implements HasBody
      */
     public function resolveEndpoint(): string
     {
-        return "/$this->phoneId/messages";
+        return "https://graph.facebook.com/v25.0/$this->phoneId/messages";
     }
 
     public function __construct(string $phoneId, WhatsappMessage $message)

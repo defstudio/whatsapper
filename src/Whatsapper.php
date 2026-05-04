@@ -8,6 +8,8 @@ namespace DefStudio\Whatsapper;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Exceptions\WhatsapperConfigurationException;
+use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaInfoRequest;
+use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetTemplateRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\WhatsappConnector;
@@ -53,6 +55,26 @@ class Whatsapper
     {
         return $this->connector()
             ->send(GetTemplateRequest::make($this->whatsappBusinessAccountId, $name, $language));
+    }
+
+    public function getMedia(string $id, string $url): Response
+    {
+        $response = $this->connector()
+            ->send(new GetMediaRequest($url));
+
+        if($response->successful()) {
+            return $response;
+        }
+
+        $response = $this->connector()
+            ->send(new GetMediaInfoRequest($id));
+
+        if(!$response->successful()) {
+            return $response;
+        }
+
+        return $this->connector()
+            ->send(new GetMediaRequest($response->json('url')));
     }
 
     public function connector(): WhatsappConnector

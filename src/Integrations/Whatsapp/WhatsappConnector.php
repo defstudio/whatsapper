@@ -18,13 +18,6 @@ class WhatsappConnector extends Connector
         $this->token = $token;
     }
 
-    /**
-     * The Base URL of the API
-     */
-    public function resolveBaseUrl(): string
-    {
-        return 'https://graph.facebook.com/v25.0';
-    }
 
     /**
      * Default headers for every request

@@ -23,7 +23,7 @@ class GetTemplateRequest extends Request
      */
     public function resolveEndpoint(): string
     {
-        return "$this->whatsappBusinessAccountId/message_templates";
+        return "https://graph.facebook.com/v25.0/$this->whatsappBusinessAccountId/message_templates";
     }
 
     protected function defaultQuery(): array
