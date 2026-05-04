@@ -60,7 +60,7 @@ class ImageMessage implements WhatsappMessage
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw new Exception('Failed to download image: '.$response->body());
         }
 
@@ -89,7 +89,7 @@ class ImageMessage implements WhatsappMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (!str_contains($mimeType, '/')) {
+        if (! str_contains($mimeType, '/')) {
             return 'bin';
         }
 
