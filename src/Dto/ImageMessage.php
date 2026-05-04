@@ -22,6 +22,8 @@ class ImageMessage implements WhatsappMessage
 
     protected string $imageMimeType;
 
+    protected string $path;
+
     public function __construct(string $imageId, string $imageUrl, string $imageMimeType)
     {
         $this->imageId = $imageId;
@@ -29,7 +31,7 @@ class ImageMessage implements WhatsappMessage
         $this->imageMimeType = $imageMimeType;
 
         if (config('whatsapper.webhook.images.store')) {
-            $this->store(Storage::disk(config('whatsapper.webhook.images.disk'))
+            $this->path = $this->store(Storage::disk(config('whatsapper.webhook.images.disk'))
                 ->path(config('whatsapper.webhook.images.path', 'whatsapp/media')."/$this->imageId.{$this->extension()}")
             );
         }
@@ -58,13 +60,18 @@ class ImageMessage implements WhatsappMessage
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
-        if (! $response->successful()) {
+        if (!$response->successful()) {
             throw new Exception('Failed to download image: '.$response->body());
         }
 
         File::put($path, $response->body());
 
         return $path;
+    }
+
+    public function path(): string
+    {
+        return $this->path ?? throw new Exception('Image not stored.');
     }
 
     public function extension(): string
@@ -82,7 +89,7 @@ class ImageMessage implements WhatsappMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (! str_contains($mimeType, '/')) {
+        if (!str_contains($mimeType, '/')) {
             return 'bin';
         }
 
