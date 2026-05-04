@@ -57,4 +57,9 @@ trait IsWhatsappMessage
     {
         return $this->contact;
     }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
 }
