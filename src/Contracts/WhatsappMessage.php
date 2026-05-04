@@ -16,4 +16,6 @@ interface WhatsappMessage
     public function from(): WhatsappContact;
 
     public function text(): string;
+
+    public function id(): string;
 }
