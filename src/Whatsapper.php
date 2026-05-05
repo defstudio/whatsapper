@@ -7,6 +7,7 @@
 namespace DefStudio\Whatsapper;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
+use DefStudio\Whatsapper\Dto\TextMessage;
 use DefStudio\Whatsapper\Exceptions\WhatsapperConfigurationException;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaInfoRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaRequest;
@@ -47,8 +48,12 @@ class Whatsapper
         return $this;
     }
 
-    public function send(string $to, WhatsappMessage $message): Response
+    public function send(string $to, WhatsappMessage|string $message): Response
     {
+        if(is_string($message)){
+            $message = new TextMessage($message);
+        }
+
         return $this->connector()
             ->send(SendWhatsappMessageRequest::make($this->phoneId, $message)->to($to));
     }
