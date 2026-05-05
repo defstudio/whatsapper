@@ -49,7 +49,7 @@ class ImageMessage implements WhatsappMessage
             $data['image']['id'],
             $data['image']['url'],
             $data['image']['mime_type'],
-        ) ->fillMessageData($data);
+        )->fillMessageData($data);
     }
 
     public function text(): string
