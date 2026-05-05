@@ -12,9 +12,7 @@ class UnsupportedMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function text(): string
     {
