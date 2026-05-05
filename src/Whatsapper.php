@@ -50,7 +50,7 @@ class Whatsapper
 
     public function send(string $to, WhatsappMessage|string $message): Response
     {
-        if(is_string($message)){
+        if (is_string($message)) {
             $message = new TextMessage($message);
         }
 
