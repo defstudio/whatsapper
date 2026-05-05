@@ -31,7 +31,8 @@ class UnsupportedMessage implements WhatsappMessage
 
     public static function build(array $data): static
     {
-        return new static($data['type']);
+        return new static($data['type'])
+            ->fillMessageData($data);
     }
 
     public function type(): string
