@@ -9,7 +9,6 @@ use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessage;
 use DefStudio\Whatsapper\Facades\Whatsapper;
 use Exception;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Mime\MimeTypes;
 
 class ImageMessage implements WhatsappMessage
@@ -62,7 +61,7 @@ class ImageMessage implements WhatsappMessage
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw new Exception('Failed to download image: '.$response->body());
         }
 
@@ -91,7 +90,7 @@ class ImageMessage implements WhatsappMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (!str_contains($mimeType, '/')) {
+        if (! str_contains($mimeType, '/')) {
             return 'bin';
         }
 

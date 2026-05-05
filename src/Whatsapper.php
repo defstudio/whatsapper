@@ -139,5 +139,4 @@ class Whatsapper
     {
         return config('whatsapper.webhook.images.path', 'whatsapp/media');
     }
-
 }

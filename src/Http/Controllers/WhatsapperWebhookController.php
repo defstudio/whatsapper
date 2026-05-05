@@ -15,13 +15,12 @@ use DefStudio\Whatsapper\Facades\Whatsapper;
 use DefStudio\Whatsapper\Support\WhatsappWebhookPayload;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 
 class WhatsapperWebhookController implements Contract
 {
     public function verify(Request $request): Response
     {
-        if (!Whatsapper::isWebhookEnabled()) {
+        if (! Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
@@ -33,7 +32,7 @@ class WhatsapperWebhookController implements Contract
             return response('Invalid hub mode', Response::HTTP_BAD_REQUEST);
         }
 
-        if (!Whatsapper::verifyWebhook($token)) {
+        if (! Whatsapper::verifyWebhook($token)) {
             return response('Invalid verify token', Response::HTTP_FORBIDDEN);
         }
 
@@ -42,7 +41,7 @@ class WhatsapperWebhookController implements Contract
 
     public function handle(Request $request): Response
     {
-        if (!Whatsapper::isWebhookEnabled()) {
+        if (! Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
