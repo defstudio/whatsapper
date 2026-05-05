@@ -67,4 +67,9 @@ trait IsWhatsappMessage
     {
         return $this->timestamp;
     }
+
+    public function type(): string
+    {
+        return $this->type;
+    }
 }

@@ -21,4 +21,6 @@ interface WhatsappMessage
     public function id(): string;
 
     public function timestamp(): Carbon;
+
+    public function type(): string;
 }

@@ -12,11 +12,8 @@ class UnsupportedMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
 
-    protected string $type;
-
-    public function __construct(string $type)
+    public function __construct()
     {
-        $this->type = $type;
     }
 
     public function text(): string
@@ -31,12 +28,7 @@ class UnsupportedMessage implements WhatsappMessage
 
     public static function build(array $data): static
     {
-        return new static($data['type'])
+        return new static()
             ->fillMessageData($data);
-    }
-
-    public function type(): string
-    {
-        return $this->type;
     }
 }
