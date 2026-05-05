@@ -13,6 +13,8 @@ use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetTemplateRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\SendWhatsappMessageRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\WhatsappConnector;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Saloon\Http\Response;
 
 class Whatsapper
@@ -117,4 +119,25 @@ class Whatsapper
     {
         return bin2hex(random_bytes(32));
     }
+
+    public function payloadsDisk(): Filesystem
+    {
+        return Storage::disk(config('whatsapper.webhook.payloads.disk'));
+    }
+
+    public function payloadsPath(): string
+    {
+        return config('whatsapper.webhook.payloads.path', 'whatsapp/payloads');
+    }
+
+    public function mediaDisk(): Filesystem
+    {
+        return Storage::disk(config('whatsapper.webhook.images.disk'));
+    }
+
+    public function mediaPath(): string
+    {
+        return config('whatsapper.webhook.images.path', 'whatsapp/media');
+    }
+
 }

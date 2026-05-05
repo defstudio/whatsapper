@@ -21,7 +21,7 @@ class WhatsapperWebhookController implements Contract
 {
     public function verify(Request $request): Response
     {
-        if (! Whatsapper::isWebhookEnabled()) {
+        if (!Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
@@ -33,7 +33,7 @@ class WhatsapperWebhookController implements Contract
             return response('Invalid hub mode', Response::HTTP_BAD_REQUEST);
         }
 
-        if (! Whatsapper::verifyWebhook($token)) {
+        if (!Whatsapper::verifyWebhook($token)) {
             return response('Invalid verify token', Response::HTTP_FORBIDDEN);
         }
 
@@ -42,7 +42,7 @@ class WhatsapperWebhookController implements Contract
 
     public function handle(Request $request): Response
     {
-        if (! Whatsapper::isWebhookEnabled()) {
+        if (!Whatsapper::isWebhookEnabled()) {
             abort(404);
         }
 
@@ -57,8 +57,11 @@ class WhatsapperWebhookController implements Contract
         foreach ($payload->messages() as $message) {
 
             if (config('whatsapper.webhook.messages.store')) {
-                Storage::disk(config('whatsapper.webhook.payloads.disk'))
-                    ->put(config('whatsapper.webhook.payloads.path', 'whatsapp/messages')."/{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                Whatsapper::payloadsDisk()
+                    ->makeDirectory(Whatsapper::payloadsPath());
+
+                Whatsapper::payloadsDisk()
+                    ->put(Whatsapper::payloadsPath()."/{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageReceived(

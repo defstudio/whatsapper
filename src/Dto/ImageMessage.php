@@ -31,8 +31,10 @@ class ImageMessage implements WhatsappMessage
         $this->imageMimeType = $imageMimeType;
 
         if (config('whatsapper.webhook.images.store')) {
-            $this->path = $this->store(Storage::disk(config('whatsapper.webhook.images.disk'))
-                ->path(config('whatsapper.webhook.images.path', 'whatsapp/media')."/$this->imageId.{$this->extension()}")
+            Whatsapper::mediaDisk()->makeDirectory(Whatsapper::mediaPath());
+
+            $this->path = $this->store(Whatsapper::mediaDisk()
+                ->path(Whatsapper::mediaPath()."/$this->imageId.{$this->extension()}")
             );
         }
     }
@@ -60,7 +62,7 @@ class ImageMessage implements WhatsappMessage
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
-        if (! $response->successful()) {
+        if (!$response->successful()) {
             throw new Exception('Failed to download image: '.$response->body());
         }
 
@@ -89,7 +91,7 @@ class ImageMessage implements WhatsappMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (! str_contains($mimeType, '/')) {
+        if (!str_contains($mimeType, '/')) {
             return 'bin';
         }
 
