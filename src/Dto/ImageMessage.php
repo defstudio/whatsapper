@@ -57,7 +57,7 @@ class ImageMessage implements WhatsappMessage
         return "<IMAGE #$this->imageId>";
     }
 
-    public function store(string $path): bool
+    public function store(string $path): string
     {
         $response = Whatsapper::getMedia($this->imageId, $this->imageUrl);
 
