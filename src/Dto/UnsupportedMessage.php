@@ -6,7 +6,6 @@ namespace DefStudio\Whatsapper\Dto;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessage;
-use Exception;
 
 class UnsupportedMessage implements WhatsappMessage
 {

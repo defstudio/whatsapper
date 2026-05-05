@@ -8,14 +8,11 @@ use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\Concerns\IsMediaMessage;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessage;
 use DefStudio\Whatsapper\Facades\Whatsapper;
-use Exception;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Mime\MimeTypes;
 
 class VideoMessage implements WhatsappMessage
 {
-    use IsWhatsappMessage;
     use IsMediaMessage;
+    use IsWhatsappMessage;
 
     protected function shouldAutoStore(): bool
     {

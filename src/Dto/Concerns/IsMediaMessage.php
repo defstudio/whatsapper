@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Whatsapper\Dto\Concerns;
 
@@ -17,7 +19,7 @@ trait IsMediaMessage
 
     protected string $mediaPath;
 
-    protected abstract function shouldAutoStore(): bool;
+    abstract protected function shouldAutoStore(): bool;
 
     public function __construct(string $mediaId, string $mediaUrl, string $mediaMimeType)
     {
@@ -34,12 +36,11 @@ trait IsMediaMessage
         }
     }
 
-
     public function store(string $path): string
     {
         $response = Whatsapper::getMedia($this->mediaId, $this->mediaUrl);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             throw WhatsapperMediaException::failedToDownload($this->mediaId, $response);
         }
 
@@ -53,12 +54,10 @@ trait IsMediaMessage
         return $this->mediaPath ?? throw WhatsapperMediaException::mediaNotStored($this->mediaId);
     }
 
-
     public function text(): string
     {
         return "<MEDIA #$this->mediaId>";
     }
-
 
     public function extension(): string
     {
@@ -75,7 +74,7 @@ trait IsMediaMessage
 
     protected function fallbackExtensionFromMimeType(string $mimeType): string
     {
-        if (!str_contains($mimeType, '/')) {
+        if (! str_contains($mimeType, '/')) {
             return 'bin';
         }
 
