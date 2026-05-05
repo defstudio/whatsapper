@@ -132,11 +132,26 @@ class Whatsapper
 
     public function mediaDisk(): Filesystem
     {
-        return Storage::disk(config('whatsapper.webhook.images.disk'));
+        return Storage::disk(config('whatsapper.webhook.media.disk'));
     }
 
     public function mediaPath(): string
     {
-        return config('whatsapper.webhook.images.path', 'whatsapp/media');
+        return config('whatsapper.webhook.media.path', 'whatsapp/media');
+    }
+
+    public function shouldStoreImages(): bool
+    {
+        return config('whatsapper.webhook.media.images.store');
+    }
+
+    public function shouldStoreVideos(): bool
+    {
+        return config('whatsapper.webhook.media.videos.store');
+    }
+
+    public function shouldStoreAudio(): bool
+    {
+        return config('whatsapper.webhook.media.audio.store');
     }
 }

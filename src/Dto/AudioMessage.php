@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpGetterAndSetterCanBeReplacedWithPropertyHooksInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
@@ -12,24 +12,34 @@ use Exception;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Mime\MimeTypes;
 
-class ImageMessage implements WhatsappMessage
+class AudioMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
     use IsMediaMessage;
 
+    protected bool $voice;
+
+
     protected function shouldAutoStore(): bool
     {
-        return Whatsapper::shouldStoreImages();
+        return Whatsapper::shouldStoreAudio();
     }
 
     public static function build(array $data): static
     {
-        return new static(
-            $data['image']['id'],
-            $data['image']['url'],
-            $data['image']['mime_type'],
+        $message = new static(
+            $data['audio']['id'],
+            $data['audio']['url'],
+            $data['audio']['mime_type'],
         )->fillMessageData($data);
+
+        $message->voice = $data['audio']['voice'] ?? false;
+
+        return $message;
     }
 
-
+    public function isVoice(): bool
+    {
+        return $this->voice;
+    }
 }

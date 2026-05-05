@@ -12,24 +12,22 @@ use Exception;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Mime\MimeTypes;
 
-class ImageMessage implements WhatsappMessage
+class VideoMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
     use IsMediaMessage;
 
     protected function shouldAutoStore(): bool
     {
-        return Whatsapper::shouldStoreImages();
+        return Whatsapper::shouldStoreVideos();
     }
 
     public static function build(array $data): static
     {
         return new static(
-            $data['image']['id'],
-            $data['image']['url'],
-            $data['image']['mime_type'],
+            $data['video']['id'],
+            $data['video']['url'],
+            $data['video']['mime_type'],
         )->fillMessageData($data);
     }
-
-
 }

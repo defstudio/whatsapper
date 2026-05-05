@@ -21,7 +21,7 @@ class ButtonMessage implements WhatsappMessage
 
     public static function build(array $data): static
     {
-        return new static($data['button']['body'], $data['button']['payload'])
+        return new static($data['button']['text'], $data['button']['payload'])
             ->fillMessageData($data);
     }
 

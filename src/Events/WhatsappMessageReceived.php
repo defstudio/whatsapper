@@ -5,10 +5,12 @@
 namespace DefStudio\Whatsapper\Events;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
+use DefStudio\Whatsapper\Dto\AudioMessage;
 use DefStudio\Whatsapper\Dto\ButtonMessage;
 use DefStudio\Whatsapper\Dto\ImageMessage;
 use DefStudio\Whatsapper\Dto\TextMessage;
 use DefStudio\Whatsapper\Dto\UnsupportedMessage;
+use DefStudio\Whatsapper\Dto\VideoMessage;
 
 readonly class WhatsappMessageReceived
 {
@@ -26,6 +28,8 @@ readonly class WhatsappMessageReceived
             'text' => TextMessage::build($this->messageData),
             'button' => ButtonMessage::build($this->messageData),
             'image' => ImageMessage::build($this->messageData),
+            'video' => VideoMessage::build($this->messageData),
+            'audio' => AudioMessage::build($this->messageData),
             default => UnsupportedMessage::build($this->messageData),
         };
 

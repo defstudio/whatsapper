@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DefStudio\Whatsapper\Dto\WhatsappContact;
 use DefStudio\Whatsapper\Dto\WhatsappMessageContext;
 use DefStudio\Whatsapper\Exceptions\WhatsapperParserException;
+use Exception;
 
 trait IsWhatsappMessage
 {
@@ -71,5 +72,10 @@ trait IsWhatsappMessage
     public function type(): string
     {
         return $this->type;
+    }
+
+    public function toRequestBody(): array
+    {
+        throw new Exception('Not implemented.');
     }
 }

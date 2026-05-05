@@ -19,11 +19,6 @@ class UnsupportedMessage implements WhatsappMessage
         return '_Errore: Questo tipo di messaggi non è supportato_';
     }
 
-    public function toRequestBody(): array
-    {
-        throw new Exception('Not implemented.');
-    }
-
     public static function build(array $data): static
     {
         return new static()
