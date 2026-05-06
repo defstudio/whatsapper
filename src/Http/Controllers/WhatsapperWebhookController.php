@@ -78,7 +78,7 @@ class WhatsapperWebhookController implements Contract
                     ->makeDirectory(Whatsapper::payloadsPath());
 
                 Whatsapper::payloadsDisk()
-                    ->put(Whatsapper::payloadsPath()."/status_{$status['id']}_{$status['timestamp']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                    ->put(Whatsapper::payloadsPath()."/status_{$status['status']['id']}_{$status['status']['timestamp']}.json", json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageStatusUpdated(
