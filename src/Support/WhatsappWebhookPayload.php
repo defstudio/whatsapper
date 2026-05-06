@@ -2,10 +2,10 @@
 
 namespace DefStudio\Whatsapper\Support;
 
-class WhatsappWebhookPayload
+readonly class WhatsappWebhookPayload
 {
     public function __construct(
-        public readonly array $payload,
+        public array $payload,
     ) {}
 
     public function messages(): array
