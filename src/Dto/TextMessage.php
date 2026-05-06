@@ -9,13 +9,9 @@ class TextMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
 
-
-
     public function __construct(
         protected string $text
-    )
-    {
-    }
+    ) {}
 
     public static function build(array $data): static
     {

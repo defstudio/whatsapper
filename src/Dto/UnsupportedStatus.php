@@ -2,7 +2,6 @@
 
 namespace DefStudio\Whatsapper\Dto;
 
-use Carbon\Carbon;
 use DefStudio\Whatsapper\Contracts\WhatsappMessageStatusChange;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessageStatusChange;
 

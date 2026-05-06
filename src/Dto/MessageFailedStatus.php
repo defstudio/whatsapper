@@ -2,7 +2,6 @@
 
 namespace DefStudio\Whatsapper\Dto;
 
-use Carbon\Carbon;
 use DefStudio\Whatsapper\Contracts\WhatsappMessageStatusChange;
 use DefStudio\Whatsapper\Dto\Concerns\IsWhatsappMessageStatusChange;
 
@@ -12,8 +11,7 @@ class MessageFailedStatus implements WhatsappMessageStatusChange
 
     public function __construct(
         protected array $errors
-    ) {
-    }
+    ) {}
 
     public static function build(array $data): static
     {

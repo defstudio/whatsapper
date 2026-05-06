@@ -19,7 +19,7 @@ class WhatsappMessageStatusUpdated
     ) {
         $this->statusChange = match (true) {
             $this->status['status'] === 'failed' => match (true) {
-                collect($this->status['errors'])->filter(fn($error) => $error['code'] === '131047')->isNotEmpty() => OutOfSupportWindowStatus::build($this->status),
+                collect($this->status['errors'])->filter(fn ($error) => $error['code'] === '131047')->isNotEmpty() => OutOfSupportWindowStatus::build($this->status),
                 default => MessageFailedStatus::build($this->status)
             },
             default => UnsupportedStatus::build($this->status),
