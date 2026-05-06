@@ -159,4 +159,14 @@ class Whatsapper
     {
         return config('whatsapper.webhook.media.audio.store');
     }
+
+    public function shouldStoreMessages(): bool
+    {
+        return config('whatsapper.webhook.payloads.messages.store');
+    }
+
+    public function shouldStoreStatusChanges(): bool
+    {
+        return config('whatsapper.webhook.payloads.status_changes.store');
+    }
 }

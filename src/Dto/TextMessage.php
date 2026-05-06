@@ -9,11 +9,12 @@ class TextMessage implements WhatsappMessage
 {
     use IsWhatsappMessage;
 
-    protected string $text;
 
-    public function __construct(string $text)
+
+    public function __construct(
+        protected string $text
+    )
     {
-        $this->text = $text;
     }
 
     public static function build(array $data): static

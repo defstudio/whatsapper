@@ -55,12 +55,12 @@ class WhatsapperWebhookController implements Contract
 
         foreach ($payload->messages() as $message) {
 
-            if (config('whatsapper.webhook.messages.store')) {
+            if (Whatsapper::shouldStoreMessages()) {
                 Whatsapper::payloadsDisk()
                     ->makeDirectory(Whatsapper::payloadsPath());
 
                 Whatsapper::payloadsDisk()
-                    ->put(Whatsapper::payloadsPath()."/{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                    ->put(Whatsapper::payloadsPath()."/message_{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageReceived(
@@ -73,6 +73,14 @@ class WhatsapperWebhookController implements Contract
         }
 
         foreach ($payload->statuses() as $status) {
+            if (Whatsapper::shouldStoreMessages()) {
+                Whatsapper::payloadsDisk()
+                    ->makeDirectory(Whatsapper::payloadsPath());
+
+                Whatsapper::payloadsDisk()
+                    ->put(Whatsapper::payloadsPath()."/status_{$status['id']}_{$status['timestamp']}.json", json_encode($message, JSON_PRETTY_PRINT));
+            }
+
             event(new WhatsappMessageStatusUpdated(
                 status: $status['status'],
                 metadata: $status['metadata'],

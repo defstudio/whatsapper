@@ -10,10 +10,15 @@ return [
     'webhook' => [
         'path' => 'whatsapp/webhook',
         'controller' => WhatsapperWebhookController::class,
-        'messages' => [
-            'store' => env('WHATSAPPER_STORE_MESSAGES', true),
-            'disk' => env('WHATSAPPER_MESSAGES_DISK'),
-            'path' => env('WHATSAPPER_MESSAGES_PATH', 'whatsapp/messages'),
+        'payloads' => [
+            'disk' => env('WHATSAPPER_PAYLOADS_DISK'),
+            'path' => env('WHATSAPPER_PAYLOADS_PATH', 'whatsapp/payloads'),
+            'status_changes' => [
+                'store' => env('WHATSAPPER_STORE_STATUS_CHANGES', true),
+            ],
+            'messages' => [
+                'store' => env('WHATSAPPER_STORE_MESSAGES', true),
+            ],
         ],
         'media' => [
             'disk' => env('WHATSAPPER_MEDIA_DISK'),
