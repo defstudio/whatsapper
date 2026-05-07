@@ -18,7 +18,6 @@ class ReactionMessage implements WhatsappMessage
         $reaction = $data['reaction'];
         $text = $reaction['emoji'];
 
-
         $reaction_message = new static($text)
             ->fillMessageData($data);
 
