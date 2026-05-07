@@ -2,9 +2,4 @@
 
 namespace DefStudio\Whatsapper\Dto;
 
-use DefStudio\Whatsapper\Dto\MessageSuccessStatus;
-
-class MessageReadStatus extends MessageSuccessStatus
-{
-
-}
+class MessageReadStatus extends MessageSuccessStatus {}

@@ -4,10 +4,9 @@ namespace DefStudio\Whatsapper\Events;
 
 use DefStudio\Whatsapper\Contracts\WhatsappMessageStatusChange;
 use DefStudio\Whatsapper\Dto\MessageDeliveredStatus;
+use DefStudio\Whatsapper\Dto\MessageFailedStatus;
 use DefStudio\Whatsapper\Dto\MessageReadStatus;
 use DefStudio\Whatsapper\Dto\MessageSentStatus;
-use DefStudio\Whatsapper\Dto\MessageSuccessStatus;
-use DefStudio\Whatsapper\Dto\MessageFailedStatus;
 use DefStudio\Whatsapper\Dto\OutOfSupportWindowStatus;
 use DefStudio\Whatsapper\Dto\UnsupportedStatus;
 

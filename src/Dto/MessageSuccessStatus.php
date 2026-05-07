@@ -21,6 +21,6 @@ abstract class MessageSuccessStatus implements WhatsappMessageStatusChange
 
     public function free(): bool
     {
-        return !$this->pricing['billable'];
+        return ! $this->pricing['billable'];
     }
 }
