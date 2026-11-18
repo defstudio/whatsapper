@@ -2,6 +2,15 @@
 
 All notable changes to `whatsapper` will be documented in this file.
 
+## v2.0.2 - 2026-11-18
+
+### What's Changed
+
+- **Validate WhatsApp reply context before building** by fabio-ivona
+- **Update CHANGELOG** by fabio-ivona
+
+**Full Changelog**: https://github.com/defstudio/whatsapper/compare/v2.0.1...v2.0.2
+
 ## v2.0.1 - 2026-07-15
 
 ### What's Changed
