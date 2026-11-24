@@ -2,6 +2,10 @@
 
 All notable changes to `whatsapper` will be documented in this file.
 
+## v2.0.3 - 2026-11-24
+
+**Full Changelog**: https://github.com/defstudio/whatsapper/compare/v2.0.2...v2.0.3
+
 ## Unreleased
 
 ### Security
