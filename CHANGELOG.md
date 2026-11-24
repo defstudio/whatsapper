@@ -2,6 +2,25 @@
 
 All notable changes to `whatsapper` will be documented in this file.
 
+## Unreleased
+
+### Security
+
+- Require a Meta App Secret when enabling webhooks and validate POST signatures
+  against the raw request body before processing any payload.
+- Resolve image, video, and audio download URLs through Graph API media metadata;
+  ignore webhook URLs, validate HTTPS Meta destinations, and disable redirects.
+- Reject unsafe media identifiers, use the configured filesystem for automatic
+  storage, encode payload filename identifiers, and restrict media extensions.
+- Add a security policy and link to private vulnerability reporting.
+
+### Upgrade requirement
+
+Configure `WHATSAPPER_APP_SECRET` (including the `webhook.app_secret` entry in
+previously published configuration), or pass `appSecret` to `enableWebhook()`.
+The GET verification token cannot replace the Meta App Secret. See the README
+for configuration cache and compatibility details.
+
 ## v2.0.2 - 2026-11-18
 
 ### What's Changed

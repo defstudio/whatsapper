@@ -23,7 +23,7 @@ class ImageMessage implements WhatsappMessage
     {
         return new static(
             $data['image']['id'],
-            $data['image']['url'],
+            $data['image']['url'] ?? '',
             $data['image']['mime_type'],
         )->fillMessageData($data);
     }

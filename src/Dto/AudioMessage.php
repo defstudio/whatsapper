@@ -27,7 +27,7 @@ class AudioMessage implements WhatsappMessage
     {
         $message = new static(
             $data['audio']['id'],
-            $data['audio']['url'],
+            $data['audio']['url'] ?? '',
             $data['audio']['mime_type'],
         )->fillMessageData($data);
 

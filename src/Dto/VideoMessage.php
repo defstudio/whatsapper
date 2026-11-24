@@ -23,7 +23,7 @@ class VideoMessage implements WhatsappMessage
     {
         return new static(
             $data['video']['id'],
-            $data['video']['url'],
+            $data['video']['url'] ?? '',
             $data['video']['mime_type'],
         )->fillMessageData($data);
     }

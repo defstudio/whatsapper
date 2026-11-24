@@ -2,6 +2,7 @@
 
 namespace DefStudio\Whatsapper\Integrations\Whatsapp\Requests;
 
+use DefStudio\Whatsapper\Support\MediaSafety;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -14,7 +15,14 @@ class GetMediaInfoRequest extends Request
 
     public function __construct(
         protected string $mediaId,
-    ) {}
+    ) {
+        MediaSafety::validateId($mediaId);
+    }
+
+    protected function defaultConfig(): array
+    {
+        return ['allow_redirects' => false];
+    }
 
     /**
      * The endpoint for the request

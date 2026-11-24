@@ -8,6 +8,7 @@ return [
         'enabled' => env('WHATSAPPER_DEBUG', false),
     ],
     'webhook' => [
+        'app_secret' => env('WHATSAPPER_APP_SECRET'),
         'path' => 'whatsapp/webhook',
         'controller' => WhatsapperWebhookController::class,
         'payloads' => [

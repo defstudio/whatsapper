@@ -9,6 +9,7 @@ namespace DefStudio\Whatsapper;
 use DefStudio\Whatsapper\Contracts\WhatsappMessage;
 use DefStudio\Whatsapper\Dto\TextMessage;
 use DefStudio\Whatsapper\Exceptions\WhatsapperConfigurationException;
+use DefStudio\Whatsapper\Exceptions\WhatsapperMediaException;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaInfoRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetMediaRequest;
 use DefStudio\Whatsapper\Integrations\Whatsapp\Requests\GetTemplateRequest;
@@ -20,15 +21,17 @@ use Saloon\Http\Response;
 
 class Whatsapper
 {
-    protected ?string $whatsappBusinessAccountId;
+    protected ?string $whatsappBusinessAccountId = null;
 
-    protected ?string $phoneId;
+    protected ?string $phoneId = null;
 
-    protected ?string $phoneToken;
+    protected ?string $phoneToken = null;
 
     protected bool $webhookEnabled = false;
 
     protected ?string $webhookVerificationToken = null;
+
+    protected ?string $appSecret = null;
 
     public function enableSending(string $whatsappBusinessAccountId, string $phoneId, string $phoneToken): static
     {
@@ -41,9 +44,17 @@ class Whatsapper
 
     public function enableWebhook(
         string $verificationToken,
+        ?string $appSecret = null,
     ): static {
+        $appSecret ??= config('whatsapper.webhook.app_secret');
+
+        if ($appSecret === null || $appSecret === '') {
+            throw WhatsapperConfigurationException::appSecretNotConfigured();
+        }
+
         $this->webhookEnabled = true;
         $this->webhookVerificationToken = $verificationToken;
+        $this->appSecret = $appSecret;
 
         return $this;
     }
@@ -64,15 +75,8 @@ class Whatsapper
             ->send(GetTemplateRequest::make($this->whatsappBusinessAccountId, $name, $language));
     }
 
-    public function getMedia(string $id, string $url): Response
+    public function getMedia(string $id, ?string $url = null): Response
     {
-        $response = $this->connector()
-            ->send(new GetMediaRequest($url));
-
-        if ($response->successful()) {
-            return $response;
-        }
-
         $response = $this->connector()
             ->send(new GetMediaInfoRequest($id));
 
@@ -80,8 +84,13 @@ class Whatsapper
             return $response;
         }
 
-        return $this->connector()
-            ->send(new GetMediaRequest($response->json('url')));
+        $mediaUrl = $response->json('url');
+
+        if (! is_string($mediaUrl)) {
+            throw WhatsapperMediaException::invalidDownloadUrl();
+        }
+
+        return $this->connector()->send(new GetMediaRequest($mediaUrl));
     }
 
     public function connector(): WhatsappConnector
@@ -118,6 +127,15 @@ class Whatsapper
         }
 
         return $token === $this->webhookVerificationToken;
+    }
+
+    public function verifyWebhookSignature(string $body, ?string $signature): bool
+    {
+        if (! $this->webhookEnabled || $this->appSecret === null || $this->appSecret === '' || $signature === null) {
+            return false;
+        }
+
+        return hash_equals('sha256='.hash_hmac('sha256', $body, $this->appSecret), $signature);
     }
 
     public function generateWebhookVerificationToken(): string

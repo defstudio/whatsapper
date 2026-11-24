@@ -45,6 +45,10 @@ class WhatsapperWebhookController implements Contract
             abort(404);
         }
 
+        if (! Whatsapper::verifyWebhookSignature($request->getContent(), $request->header('X-Hub-Signature-256'))) {
+            abort(Response::HTTP_FORBIDDEN, 'Invalid webhook signature');
+        }
+
         if (config('whatsapper.debug.enabled')) {
             logger('[WHATSAPPER webhook] payload received: '.json_encode($request->all(), JSON_PRETTY_PRINT));
         }
@@ -60,7 +64,7 @@ class WhatsapperWebhookController implements Contract
                     ->makeDirectory(Whatsapper::payloadsPath());
 
                 Whatsapper::payloadsDisk()
-                    ->put(Whatsapper::payloadsPath()."/message_{$message['message']['id']}.json", json_encode($message, JSON_PRETTY_PRINT));
+                    ->put(Whatsapper::payloadsPath().'/message_'.rawurlencode($message['message']['id']).'.json', json_encode($message, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageReceived(
@@ -78,7 +82,7 @@ class WhatsapperWebhookController implements Contract
                     ->makeDirectory(Whatsapper::payloadsPath());
 
                 Whatsapper::payloadsDisk()
-                    ->put(Whatsapper::payloadsPath()."/status_{$status['status']['id']}_{$status['status']['timestamp']}.json", json_encode($status, JSON_PRETTY_PRINT));
+                    ->put(Whatsapper::payloadsPath().'/status_'.rawurlencode($status['status']['id']).'_'.rawurlencode((string) $status['status']['timestamp']).'.json', json_encode($status, JSON_PRETTY_PRINT));
             }
 
             event(new WhatsappMessageStatusUpdated(

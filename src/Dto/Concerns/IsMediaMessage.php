@@ -6,8 +6,9 @@ namespace DefStudio\Whatsapper\Dto\Concerns;
 
 use DefStudio\Whatsapper\Exceptions\WhatsapperMediaException;
 use DefStudio\Whatsapper\Facades\Whatsapper;
+use DefStudio\Whatsapper\Support\MediaSafety;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Mime\MimeTypes;
+use Saloon\Http\Response;
 
 trait IsMediaMessage
 {
@@ -23,30 +24,39 @@ trait IsMediaMessage
 
     public function __construct(string $mediaId, string $mediaUrl, string $mediaMimeType)
     {
+        MediaSafety::validateId($mediaId);
+
         $this->mediaId = $mediaId;
         $this->mediaUrl = $mediaUrl;
         $this->mediaMimeType = $mediaMimeType;
 
         if ($this->shouldAutoStore()) {
-            Whatsapper::mediaDisk()->makeDirectory(Whatsapper::mediaPath());
+            $path = Whatsapper::mediaPath()."/$this->mediaId.{$this->extension()}";
 
-            $this->mediaPath = $this->store(Whatsapper::mediaDisk()
-                ->path(Whatsapper::mediaPath()."/$this->mediaId.{$this->extension()}")
-            );
+            if (! Whatsapper::mediaDisk()->put($path, $this->download()->body())) {
+                throw WhatsapperMediaException::failedToStore($this->mediaId);
+            }
+
+            $this->mediaPath = Whatsapper::mediaDisk()->path($path);
         }
     }
 
     public function store(string $path): string
     {
-        $response = Whatsapper::getMedia($this->mediaId, $this->mediaUrl);
+        File::put($path, $this->download()->body());
+
+        return $path;
+    }
+
+    protected function download(): Response
+    {
+        $response = Whatsapper::getMedia($this->mediaId);
 
         if (! $response->successful()) {
             throw WhatsapperMediaException::failedToDownload($this->mediaId, $response);
         }
 
-        File::put($path, $response->body());
-
-        return $path;
+        return $response;
     }
 
     public function path(): string
@@ -63,25 +73,18 @@ trait IsMediaMessage
     {
         $normalized = strtolower(trim(explode(';', $this->mediaMimeType)[0]));
 
-        $extensions = MimeTypes::getDefault()->getExtensions($normalized);
-
-        if ($extensions !== []) {
-            return $extensions[0];
-        }
-
-        return $this->fallbackExtensionFromMimeType($normalized);
-    }
-
-    protected function fallbackExtensionFromMimeType(string $mimeType): string
-    {
-        if (! str_contains($mimeType, '/')) {
-            return 'bin';
-        }
-
-        $subtype = explode('/', $mimeType, 2)[1];
-        $subtype = explode('+', $subtype, 2)[0];
-        $subtype = explode('.', $subtype, 2)[0];
-
-        return preg_replace('/[^a-z0-9]/', '', $subtype) ?: 'bin';
+        return match ($normalized) {
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'video/mp4' => 'mp4',
+            'video/3gpp' => '3gp',
+            'audio/aac' => 'aac',
+            'audio/amr' => 'amr',
+            'audio/mpeg' => 'mp3',
+            'audio/mp4' => 'm4a',
+            'audio/ogg' => 'ogg',
+            default => 'bin',
+        };
     }
 }
